@@ -1,5 +1,4 @@
 <?php
-require_once "database.php";
 $vaarin = "";
 $lista = array('+','-','A');
 $lista2 = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','H','J','K','L','M','N','P','R','S','T','U','V','W','X','Y');
@@ -17,7 +16,7 @@ if (substr($henkilotunnus,10,1)!=$lista2[$viimeinen]){
         $vaarin = "viimeinen merkki on väärin";
     
 }
-if ((substr($henkilotunnus,0,2)>$lista3[substr($henkilotunnus,2,2)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
+if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2)+0)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
     $vaarin = "ensimmäinen ja/tai toinen numero on väärin";
 }
 if ((substr($henkilotunnus,2,2)>12) || (substr($henkilotunnus,2,2)<1)){ //katsoo onko kolmas ja neljäs numero oikeat
