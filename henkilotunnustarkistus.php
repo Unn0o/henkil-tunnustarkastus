@@ -16,7 +16,7 @@ if (substr($henkilotunnus,10,1)!=$lista2[$viimeinen]){
         $vaarin = "viimeinen merkki on väärin";
     
 }
-if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2)+0)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
+if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2))-1]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
     $vaarin = "ensimmäinen ja/tai toinen numero on väärin";
 }
 if ((substr($henkilotunnus,2,2)>12) || (substr($henkilotunnus,2,2)<1)){ //katsoo onko kolmas ja neljäs numero oikeat
