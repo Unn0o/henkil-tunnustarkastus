@@ -7,12 +7,14 @@ $lista3 = array(31,28,31,30,31,30,31,31,30,31,30,31);
 if(!empty($_POST)){
 
     $henkilotunnus = $_POST['henkilotunnus'];
-
 if ((strlen($henkilotunnus)!=11 && ($henkilotunnus != null))){ //katsoo onko henkilötunnus oikean pituinen
     $vaarin = "henkilötunnus on väärän pituinen";
 }elseif(empty($henkilotunnus)){
     $vaarin = "syötä henkilötunnus";
-}else{//tarkistaa onko viimeinen merkki oikea
+}if(!is_numeric(substr($henkilotunnus,0,6)) || !is_numeric(substr($henkilotunnus,7,3))){
+    $vaarin = "0-6 ja/tai 8-10 riveillä pitäisi olla numeroita";
+}
+else{//tarkistaa onko viimeinen merkki oikea
     $viimeinen = (substr($henkilotunnus,0,6) . substr($henkilotunnus,7,3))%31;
 if (substr($henkilotunnus,10,1)!=$lista2[$viimeinen]){
         $vaarin = "viimeinen merkki on väärin";
@@ -23,15 +25,17 @@ if($karkausvuosi = ((substr($henkilotunnus,4,2))%4 == 0)){
 }else{
     $karkausvuosi = 28;
 }
+
 $lista3 = array(31,$karkausvuosi,31,30,31,30,31,31,30,31,30,31);
-if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2))-1]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
+if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2)<13)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
     $vaarin = "ensimmäinen ja/tai toinen numero on väärin";
+
 }
 if ((substr($henkilotunnus,2,2)>12) || (substr($henkilotunnus,2,2)<1)){ //katsoo onko kolmas ja neljäs numero oikeat
     $vaarin = "kolmas ja/tai neljäs numero on väärin";
 }
 if (in_array((substr($henkilotunnus,6,1)),$lista)==false){//katsoo laitatko vuosisadan tunnuksen
-    $vaarin ="Laita seitsemäs merkki";
+    $vaarin ="Seitsemäsmerkki on väärin";
 }
 if (substr($henkilotunnus,7,3) < 2){//tarkistaa kahdeksannen, yhdeksännen ja kymmenennen numeron
     $vaarin = "kahdeksas ja/tai yhdeksäs ja/tai kymmenes numero on väärin";
