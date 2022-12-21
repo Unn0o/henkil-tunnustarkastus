@@ -11,7 +11,7 @@ if ((strlen($henkilotunnus)!=11 && ($henkilotunnus != null))){ //katsoo onko hen
     $vaarin = "henkilötunnus on väärän pituinen";
 }elseif(empty($henkilotunnus)){
     $vaarin = "syötä henkilötunnus";
-}if(!is_numeric(substr($henkilotunnus,0,6)) || !is_numeric(substr($henkilotunnus,7,3))){
+}elseif(!is_numeric(substr($henkilotunnus,0,6)) || !is_numeric(substr($henkilotunnus,7,3))){
     $vaarin = "0-6 ja/tai 8-10 riveillä pitäisi olla numeroita";
 }
 else{//tarkistaa onko viimeinen merkki oikea
