@@ -1,13 +1,12 @@
 <?php
 $vaarin = "";
 
-$lista = array('+','-','A');
-$lista2 = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','H','J','K','L','M','N','P','R','S','T','U','V','W','X','Y');
-$lista3 = array(31,28,31,30,31,30,31,31,30,31,30,31);
+$vuosisataMerkit = array('+','-','A','B','C','D','E','F','Y','X','W','U');
+$tarkistusLuvut = array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','H','J','K','L','M','N','P','R','S','T','U','V','W','X','Y');
 if(!empty($_POST)){
-
     $henkilotunnus = $_POST['henkilotunnus'];
-if ((strlen($henkilotunnus)!=11 && ($henkilotunnus != null))){ //katsoo onko henkilötunnus oikean pituinen
+    $kuukaudet = array(31,((substr($henkilotunnus,4,2))%4 == 0) ? 29 : 28,31,30,31,30,31,31,30,31,30,31);
+    if ((strlen($henkilotunnus)!=11 && ($henkilotunnus != null))){ //katsoo onko henkilötunnus oikean pituinen
     $vaarin = "henkilötunnus on väärän pituinen";
 }elseif(empty($henkilotunnus)){
     $vaarin = "syötä henkilötunnus";
@@ -16,7 +15,7 @@ if ((strlen($henkilotunnus)!=11 && ($henkilotunnus != null))){ //katsoo onko hen
 }
 else{//tarkistaa onko viimeinen merkki oikea
     $viimeinen = (substr($henkilotunnus,0,6) . substr($henkilotunnus,7,3))%31;
-if (substr($henkilotunnus,10,1)!=$lista2[$viimeinen]){
+if (substr($henkilotunnus,10,1)!=$tarkistusLuvut[$viimeinen]){
         $vaarin = "viimeinen merkki on väärin";
     
 }
@@ -27,14 +26,14 @@ if($karkausvuosi = ((substr($henkilotunnus,4,2))%4 == 0)){
 }
 
 $lista3 = array(31,$karkausvuosi,31,30,31,30,31,31,30,31,30,31);
-if ((substr($henkilotunnus,0,2)>$lista3[(substr($henkilotunnus,2,2)<13)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
+if ((substr($henkilotunnus,0,2)>$kuukaudet[(substr($henkilotunnus,2,2)<13)]) || (substr($henkilotunnus,0,2)<1)){//katsoo onko ensimmäinen ja toinen numero oikeat
     $vaarin = "ensimmäinen ja/tai toinen numero on väärin";
 
 }
 if ((substr($henkilotunnus,2,2)>12) || (substr($henkilotunnus,2,2)<1)){ //katsoo onko kolmas ja neljäs numero oikeat
     $vaarin = "kolmas ja/tai neljäs numero on väärin";
 }
-if (in_array((substr($henkilotunnus,6,1)),$lista)==false){//katsoo laitatko vuosisadan tunnuksen
+if (in_array((substr($henkilotunnus,6,1)),$vuosisataMerkit)==false){//katsoo laitatko vuosisadan tunnuksen
     $vaarin ="Seitsemäsmerkki on väärin";
 }
 if (substr($henkilotunnus,7,3) < 2){//tarkistaa kahdeksannen, yhdeksännen ja kymmenennen numeron
